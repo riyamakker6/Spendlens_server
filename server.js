@@ -37,7 +37,7 @@ if (isProduction) {
 app.use(express.json());
 
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || 'http://127.0.0.1:5500',
+  origin: process.env.CLIENT_ORIGIN || 'https://spendlens-server.onrender.com',
   credentials: true,
 }));
 
