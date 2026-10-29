@@ -36,9 +36,25 @@ if (isProduction) {
 // Middleware
 app.use(express.json());
 
+// app.use(cors({
+//   origin: process.env.CLIENT_ORIGIN || 'https://spendlens-server.onrender.com',
+//   credentials: true,
+// }));
+const allowedOrigins = [
+  "http://127.0.0.1:5500",
+  "http://localhost:5500",
+  "https://spendlenns.netlify.app"
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || 'https://spendlens-server.onrender.com',
-  credentials: true,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
 
 app.use(session({
